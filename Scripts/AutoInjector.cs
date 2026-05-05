@@ -4,7 +4,6 @@ using VContainer.Unity;
 
 namespace Toolkit.WContainer
 {
-	[DefaultExecutionOrder(-1000)]
 	public class AutoInjector : MonoBehaviour
 	{
 		[SerializeField]
