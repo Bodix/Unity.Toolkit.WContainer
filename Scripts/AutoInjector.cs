@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
@@ -24,7 +25,7 @@ namespace Toolkit.WContainer
 			}
 			else
 			{
-				LifetimeScope scope = LifetimeScope.Find<LifetimeScope>();
+				LifetimeScope scope = FindLifetimeScope(_targetLifetimeScope.Type);
 				if (scope != null)
 					InjectWithSelectedMethod(scope.Container);
 				else
@@ -50,6 +51,15 @@ namespace Toolkit.WContainer
 		{
 			GameObject,
 			GameObjectWithoutChildren
+		}
+
+		private static LifetimeScope FindLifetimeScope(Type type)
+		{
+#if UNITY_2022_1_OR_NEWER
+			return (LifetimeScope)FindAnyObjectByType(type);
+#else
+			return (LifetimeScope)FindObjectOfType(type);
+#endif
 		}
 	}
 }
