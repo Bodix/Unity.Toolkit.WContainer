@@ -1,6 +1,8 @@
-﻿using Bodix.Evolunity.Patterns;
+﻿using System.Collections.ObjectModel;
+using Bodix.Evolunity.Patterns;
 using UnityEngine;
 using VContainer;
+using VContainer.Unity;
 
 namespace Toolkit.WContainer
 {
@@ -16,6 +18,18 @@ namespace Toolkit.WContainer
 		public static void RegisterInstanceOptional<T>(this IContainerBuilder containerBuilder, T instance)
 		{
 			containerBuilder.RegisterInstance(new Optional<T>(instance));
+		}
+
+		public static void RegisterComponentOptional<T>(this IContainerBuilder containerBuilder, T instance)
+		{
+			containerBuilder.RegisterComponent(new Optional<T>(instance));
+		}
+
+		public static void RegisterRuntimeCollection<T>(this IContainerBuilder builder, Lifetime lifetime = Lifetime.Scoped)
+		{
+			builder.Register<ObservableCollection<T>>(lifetime)
+				.AsSelf()
+				.AsImplementedInterfaces(); // Allows injecting INotifyCollectionChanged if needed.
 		}
 	}
 }
