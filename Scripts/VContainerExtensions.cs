@@ -2,7 +2,6 @@
 using Bodix.Evolunity.Patterns;
 using UnityEngine;
 using VContainer;
-using VContainer.Unity;
 
 namespace Toolkit.WContainer
 {
