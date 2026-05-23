@@ -8,21 +8,16 @@ namespace Toolkit.WContainer
 {
 	public static class VContainerExtensions
 	{
-		public static void InjectGameObjectWithoutChildren(this IObjectResolver objectResolver, GameObject gameObject)
+		public static void InjectGameObjectWithoutChildren(this IObjectResolver resolver, GameObject gameObject)
 		{
 			// TODO: Optimize it with cached list and GetComponents method overload. [#optimization]
 			foreach (Component component in gameObject.GetComponents<Component>())
-				objectResolver.Inject(component);
+				resolver.Inject(component);
 		}
 
-		public static void RegisterInstanceOptional<T>(this IContainerBuilder containerBuilder, T instance)
+		public static void RegisterOptional<T>(this IContainerBuilder builder, T instance)
 		{
-			containerBuilder.RegisterInstance(new Optional<T>(instance));
-		}
-
-		public static void RegisterComponentOptional<T>(this IContainerBuilder containerBuilder, T instance)
-		{
-			containerBuilder.RegisterComponent(new Optional<T>(instance));
+			builder.RegisterInstance(new Optional<T>(instance));
 		}
 
 		public static void RegisterRuntimeCollection<T>(this IContainerBuilder builder,
