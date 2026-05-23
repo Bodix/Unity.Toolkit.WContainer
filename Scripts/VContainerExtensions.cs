@@ -28,11 +28,16 @@ namespace Toolkit.WContainer
 				.AsImplementedInterfaces(); // Allows injecting INotifyCollectionChanged if needed.
 		}
 
-		public static void RegisterMutableReference<T>(this IContainerBuilder builder,
-			Lifetime lifetime = Lifetime.Scoped) where T : class
-		{
-			builder.Register<ObservableReference<T>>(lifetime);
-		}
+		// IMPORTANT!!! This approach leads to hidden issues with mutable references.
+		// It requires that the reference’s generic type be registered in the container.
+		// And if it is registered in the container, there is a risk of accidentally
+		// using the type itself directly (instead of using a reference to it).
+		//
+		// public static void RegisterMutableReference<T>(this IContainerBuilder builder,
+		// 	Lifetime lifetime = Lifetime.Scoped) where T : class
+		// {
+		// 	builder.Register<ObservableReference<T>>(lifetime);
+		// }
 
 		public static void RegisterMutableReference<T>(this IContainerBuilder builder, T instance,
 			Lifetime lifetime = Lifetime.Scoped) where T : class
