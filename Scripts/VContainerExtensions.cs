@@ -25,11 +25,24 @@ namespace Toolkit.WContainer
 			containerBuilder.RegisterComponent(new Optional<T>(instance));
 		}
 
-		public static void RegisterRuntimeCollection<T>(this IContainerBuilder builder, Lifetime lifetime = Lifetime.Scoped)
+		public static void RegisterRuntimeCollection<T>(this IContainerBuilder builder,
+			Lifetime lifetime = Lifetime.Scoped)
 		{
 			builder.Register<ObservableCollection<T>>(lifetime)
 				.AsSelf()
 				.AsImplementedInterfaces(); // Allows injecting INotifyCollectionChanged if needed.
+		}
+
+		public static void RegisterMutableReference<T>(this IContainerBuilder builder,
+			Lifetime lifetime = Lifetime.Scoped) where T : class
+		{
+			builder.Register<ObservableReference<T>>(lifetime);
+		}
+
+		public static void RegisterMutableReference<T>(this IContainerBuilder builder, T instance,
+			Lifetime lifetime = Lifetime.Scoped) where T : class
+		{
+			builder.RegisterInstance(new ObservableReference<T>(instance));
 		}
 	}
 }
