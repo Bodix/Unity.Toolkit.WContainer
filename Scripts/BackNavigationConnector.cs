@@ -4,7 +4,7 @@ using VContainer;
 
 namespace Toolkit.WContainer
 {
-	[RequireComponent(typeof(IBackHandler))]
+	[RequireComponent(typeof(IBackNavigationHandler))]
 	public class BackNavigationConnector : MonoBehaviour
 	{
 		/*
@@ -37,7 +37,7 @@ namespace Toolkit.WContainer
 		 *    The screen must dynamically register new handlers or change its internal logic.
 		 *
 		 * HOW TO HANDLE THESE CASES:
-		 * Do not use the BackNavigationConnector. Instead, inject the IBackNavigationManager
+		 * Do not use the BackNavigationConnector. Instead, inject the IBackNavigationService
 		 * directly into your complex class (State Machine, CanvasGroup Manager, or Custom Controller).
 		 * Call the Register() and Unregister() methods manually according to your custom business logic.
 		 */
@@ -45,11 +45,11 @@ namespace Toolkit.WContainer
 		[Inject]
 		private IBackNavigationService _navigationService;
 
-		private IBackHandler _handler;
+		private IBackNavigationHandler _handler;
 
 		private void Awake()
 		{
-			_handler = GetComponent<IBackHandler>();
+			_handler = GetComponent<IBackNavigationHandler>();
 		}
 
 		private void OnEnable()
