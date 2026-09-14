@@ -5,7 +5,7 @@ using VContainer;
 namespace Toolkit.WContainer
 {
 	[RequireComponent(typeof(BackNavigationConnector))]
-	public class ExitHandler : Bodix.Evolunity.Components.ExitHandler
+	public class ExitHandler : PerfectCore.PerfectUI.ExitHandler
 	{
 		[Inject]
 		private UiDialogService _uiDialogService;
